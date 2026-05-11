@@ -1,0 +1,663 @@
+{
+  "framework": "keras",
+  "model_name": "nih-mobilenet-infiltration",
+  "run_metadata": {
+    "run_id": "run-2731e561d2f8",
+    "config_hash": "571de72ba59cf575",
+    "run_timestamp_utc": "2026-04-14T17:20:16.416042+00:00"
+  },
+  "risk_register": {
+    "records": [
+      {
+        "risk_id": "R-FAIRNESS-GAP",
+        "title": "Fairness disparity across metadata groups",
+        "description": "At least one metadata field shows a notable disparity across groups (selection-rate proxy).",
+        "severity": 5,
+        "occurrence": 4,
+        "detectability": 4,
+        "strategy": "mitigate",
+        "cause": "Subgroup imbalance or threshold mismatch",
+        "current_controls": "Per-group fairness metrics",
+        "recommended_action": "Review sampling strategy and group-specific thresholds",
+        "residual_rpn": null,
+        "created_at": "2026-04-14T17:20:16.417173+00:00",
+        "rpn": 80,
+        "high_risk": true
+      },
+      {
+        "risk_id": "R-STRESS-XRAY_SENSOR_NOISE",
+        "title": "Robustness degradation under xray_sensor_noise",
+        "description": "Perturbation 'xray_sensor_noise' reduced accuracy by -0.003 and showed average entropy 0.488.",
+        "severity": 1,
+        "occurrence": 2,
+        "detectability": 3,
+        "strategy": "mitigate",
+        "cause": "Model sensitivity to perturbations",
+        "current_controls": "Stress test taxonomy by domain",
+        "recommended_action": "Harden training with targeted augmentation",
+        "residual_rpn": null,
+        "created_at": "2026-04-14T17:20:16.417193+00:00",
+        "rpn": 6,
+        "high_risk": false
+      },
+      {
+        "risk_id": "R-STRESS-XRAY_SOFT_BLUR",
+        "title": "Robustness degradation under xray_soft_blur",
+        "description": "Perturbation 'xray_soft_blur' reduced accuracy by 0.032 and showed average entropy 0.522.",
+        "severity": 1,
+        "occurrence": 2,
+        "detectability": 4,
+        "strategy": "mitigate",
+        "cause": "Model sensitivity to perturbations",
+        "current_controls": "Stress test taxonomy by domain",
+        "recommended_action": "Harden training with targeted augmentation",
+        "residual_rpn": null,
+        "created_at": "2026-04-14T17:20:16.417199+00:00",
+        "rpn": 8,
+        "high_risk": false
+      },
+      {
+        "risk_id": "R-STRESS-XRAY_LOW_LIGHT",
+        "title": "Robustness degradation under xray_low_light",
+        "description": "Perturbation 'xray_low_light' reduced accuracy by -0.011 and showed average entropy 0.487.",
+        "severity": 1,
+        "occurrence": 2,
+        "detectability": 3,
+        "strategy": "mitigate",
+        "cause": "Model sensitivity to perturbations",
+        "current_controls": "Stress test taxonomy by domain",
+        "recommended_action": "Harden training with targeted augmentation",
+        "residual_rpn": null,
+        "created_at": "2026-04-14T17:20:16.417204+00:00",
+        "rpn": 6,
+        "high_risk": false
+      }
+    ],
+    "total_records": 4
+  },
+  "fmea_scores": [
+    {
+      "severity": 5,
+      "occurrence": 1,
+      "detectability": 4,
+      "rpn": 20,
+      "failure_mode": "Prediction quality drift under expected operating conditions",
+      "root_cause": "Distribution mismatch between observed and predicted outcomes",
+      "current_controls": "Fairness analysis and stress testing enabled in evaluation pipeline",
+      "recommended_actions": "Review thresholding strategy and retraining criteria",
+      "residual_rpn": 15,
+      "high_risk": false,
+      "action_required": false
+    }
+  ],
+  "fairness_results": [
+    {
+      "metric_name": "selection_rate_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.3953488372093023
+        },
+        {
+          "group_name": "F",
+          "value": 0.38388625592417064
+        }
+      ]
+    },
+    {
+      "metric_name": "true_positive_rate_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.45217391304347826
+        },
+        {
+          "group_name": "F",
+          "value": 0.5058823529411764
+        }
+      ]
+    },
+    {
+      "metric_name": "false_positive_rate_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.3602150537634409
+        },
+        {
+          "group_name": "F",
+          "value": 0.30158730158730157
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_by_gender",
+      "groups": [
+        {
+          "group_name": "tpr_gap",
+          "value": 0.05370843989769819
+        },
+        {
+          "group_name": "fpr_gap",
+          "value": 0.0586277521761393
+        },
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.0586277521761393
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_by_gender",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.9710064120434905
+        }
+      ]
+    },
+    {
+      "metric_name": "brier_score_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.2575109418014898
+        },
+        {
+          "group_name": "F",
+          "value": 0.2543922297250996
+        }
+      ]
+    },
+    {
+      "metric_name": "ece_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.14370784957419797
+        },
+        {
+          "group_name": "F",
+          "value": 0.13755846328115293
+        }
+      ]
+    },
+    {
+      "metric_name": "optimal_threshold_by_gender",
+      "groups": [
+        {
+          "group_name": "M",
+          "value": 0.2
+        },
+        {
+          "group_name": "F",
+          "value": 0.4
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_group_thresholded_by_gender",
+      "groups": [
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.34971838197644645
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_group_thresholded_by_gender",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.4755134281200632
+        }
+      ]
+    },
+    {
+      "metric_name": "selection_rate_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.39603960396039606
+        },
+        {
+          "group_name": "senior",
+          "value": 0.28888888888888886
+        },
+        {
+          "group_name": "young",
+          "value": 0.5540540540540541
+        }
+      ]
+    },
+    {
+      "metric_name": "true_positive_rate_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.4915254237288136
+        },
+        {
+          "group_name": "senior",
+          "value": 0.32608695652173914
+        },
+        {
+          "group_name": "young",
+          "value": 0.6111111111111112
+        }
+      ]
+    },
+    {
+      "metric_name": "false_positive_rate_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.33513513513513515
+        },
+        {
+          "group_name": "senior",
+          "value": 0.2696629213483146
+        },
+        {
+          "group_name": "young",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_by_age_group",
+      "groups": [
+        {
+          "group_name": "tpr_gap",
+          "value": 0.285024154589372
+        },
+        {
+          "group_name": "fpr_gap",
+          "value": 0.2303370786516854
+        },
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.285024154589372
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_by_age_group",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.5214092140921409
+        }
+      ]
+    },
+    {
+      "metric_name": "brier_score_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.2569396880818841
+        },
+        {
+          "group_name": "senior",
+          "value": 0.2548243171659322
+        },
+        {
+          "group_name": "young",
+          "value": 0.2558587249734158
+        }
+      ]
+    },
+    {
+      "metric_name": "ece_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.13726283443274084
+        },
+        {
+          "group_name": "senior",
+          "value": 0.15857938350074824
+        },
+        {
+          "group_name": "young",
+          "value": 0.17337664569149147
+        }
+      ]
+    },
+    {
+      "metric_name": "optimal_threshold_by_age_group",
+      "groups": [
+        {
+          "group_name": "adult",
+          "value": 0.35
+        },
+        {
+          "group_name": "senior",
+          "value": 0.4
+        },
+        {
+          "group_name": "young",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_group_thresholded_by_age_group",
+      "groups": [
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.1495946941783346
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_group_thresholded_by_age_group",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.6574635241301908
+        }
+      ]
+    },
+    {
+      "metric_name": "selection_rate_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.6008230452674898
+        },
+        {
+          "group_name": "PA",
+          "value": 0.20074349442379183
+        }
+      ]
+    },
+    {
+      "metric_name": "true_positive_rate_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.6576576576576577
+        },
+        {
+          "group_name": "PA",
+          "value": 0.24719101123595505
+        }
+      ]
+    },
+    {
+      "metric_name": "false_positive_rate_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.553030303030303
+        },
+        {
+          "group_name": "PA",
+          "value": 0.17777777777777778
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_by_view_position",
+      "groups": [
+        {
+          "group_name": "tpr_gap",
+          "value": 0.41046664642170266
+        },
+        {
+          "group_name": "fpr_gap",
+          "value": 0.37525252525252517
+        },
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.41046664642170266
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_by_view_position",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.33411417222590006
+        }
+      ]
+    },
+    {
+      "metric_name": "brier_score_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.26880804105933737
+        },
+        {
+          "group_name": "PA",
+          "value": 0.24485947946775263
+        }
+      ]
+    },
+    {
+      "metric_name": "ece_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.12703936077930308
+        },
+        {
+          "group_name": "PA",
+          "value": 0.14231170195961532
+        }
+      ]
+    },
+    {
+      "metric_name": "optimal_threshold_by_view_position",
+      "groups": [
+        {
+          "group_name": "AP",
+          "value": 0.4
+        },
+        {
+          "group_name": "PA",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "metric_name": "equalized_odds_gap_group_thresholded_by_view_position",
+      "groups": [
+        {
+          "group_name": "equalized_odds_gap",
+          "value": 0.06417653608664842
+        }
+      ]
+    },
+    {
+      "metric_name": "disparate_impact_ratio_group_thresholded_by_view_position",
+      "groups": [
+        {
+          "group_name": "ratio",
+          "value": 0.8719250040407306
+        }
+      ]
+    }
+  ],
+  "stress_results": [
+    {
+      "perturbation_name": "xray_sensor_noise",
+      "perturbation_kind": "noise",
+      "severity": 0.22,
+      "sample_count": 1536,
+      "reference_metric": "accuracy",
+      "baseline_value": 0.58984375,
+      "stressed_value": 0.5950520833333334,
+      "performance_drop": -0.005208333333333333,
+      "mean_absolute_delta": 0.15362285858342753,
+      "average_entropy": 0.4884899085170211,
+      "max_performance_drop": -0.0026041666666666665,
+      "drop_slope": 0.0,
+      "severity_points": [
+        {
+          "severity": 0.15,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.5924479166666666,
+          "performance_drop": -0.0026041666666666665,
+          "mean_absolute_delta": 0.1305794297959134,
+          "average_entropy": 0.43964091766531904
+        },
+        {
+          "severity": 0.22,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.5924479166666666,
+          "performance_drop": -0.0026041666666666665,
+          "mean_absolute_delta": 0.15362285858342753,
+          "average_entropy": 0.4884899085170211
+        },
+        {
+          "severity": 0.29,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.5924479166666666,
+          "performance_drop": -0.0026041666666666665,
+          "mean_absolute_delta": 0.17666628737094164,
+          "average_entropy": 0.5373388993687233
+        }
+      ],
+      "parameters": {
+        "modality": "radiology"
+      }
+    },
+    {
+      "perturbation_name": "xray_soft_blur",
+      "perturbation_kind": "blur",
+      "severity": 0.34,
+      "sample_count": 1536,
+      "reference_metric": "accuracy",
+      "baseline_value": 0.58984375,
+      "stressed_value": 0.568359375,
+      "performance_drop": 0.021484375,
+      "mean_absolute_delta": 0.1748026358854986,
+      "average_entropy": 0.5219005015765369,
+      "max_performance_drop": 0.0322265625,
+      "drop_slope": 0.107421875,
+      "severity_points": [
+        {
+          "severity": 0.24,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.5791015625,
+          "performance_drop": 0.0107421875,
+          "mean_absolute_delta": 0.1485822405026738,
+          "average_entropy": 0.46971045141888323
+        },
+        {
+          "severity": 0.34,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.568359375,
+          "performance_drop": 0.021484375,
+          "mean_absolute_delta": 0.1748026358854986,
+          "average_entropy": 0.5219005015765369
+        },
+        {
+          "severity": 0.44,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.5576171875,
+          "performance_drop": 0.0322265625,
+          "mean_absolute_delta": 0.20102303126832338,
+          "average_entropy": 0.5740905517341907
+        }
+      ],
+      "parameters": {
+        "mode": "gaussian_like",
+        "kernel_size": 5
+      }
+    },
+    {
+      "perturbation_name": "xray_central_occlusion",
+      "perturbation_kind": "occlusion",
+      "severity": 0.38000000000000006,
+      "sample_count": 1536,
+      "reference_metric": "accuracy",
+      "baseline_value": 0.58984375,
+      "stressed_value": 0.59765625,
+      "performance_drop": -0.0078125,
+      "mean_absolute_delta": 0.2037652843810065,
+      "average_entropy": 0.30464755408831273,
+      "max_performance_drop": -0.00390625,
+      "drop_slope": 0.0,
+      "severity_points": [
+        {
+          "severity": 0.27,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.59375,
+          "performance_drop": -0.00390625,
+          "mean_absolute_delta": 0.17320049172385552,
+          "average_entropy": 0.2741827986794815
+        },
+        {
+          "severity": 0.38,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.59375,
+          "performance_drop": -0.00390625,
+          "mean_absolute_delta": 0.2037652843810065,
+          "average_entropy": 0.30464755408831273
+        },
+        {
+          "severity": 0.49,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.59375,
+          "performance_drop": -0.00390625,
+          "mean_absolute_delta": 0.23433007703815745,
+          "average_entropy": 0.33511230949714405
+        }
+      ],
+      "parameters": {
+        "position": "center",
+        "coverage": 0.3
+      }
+    },
+    {
+      "perturbation_name": "xray_low_light",
+      "perturbation_kind": "illumination",
+      "severity": 0.30000000000000027,
+      "sample_count": 1536,
+      "reference_metric": "accuracy",
+      "baseline_value": 0.58984375,
+      "stressed_value": 0.611328125,
+      "performance_drop": -0.021484375,
+      "mean_absolute_delta": 0.038166307939718536,
+      "average_entropy": 0.4871923617047686,
+      "max_performance_drop": -0.0107421875,
+      "drop_slope": 0.0,
+      "severity_points": [
+        {
+          "severity": 0.21,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.6005859375,
+          "performance_drop": -0.0107421875,
+          "mean_absolute_delta": 0.03244136174876076,
+          "average_entropy": 0.43847312553429174
+        },
+        {
+          "severity": 0.3,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.6005859375,
+          "performance_drop": -0.0107421875,
+          "mean_absolute_delta": 0.038166307939718536,
+          "average_entropy": 0.4871923617047686
+        },
+        {
+          "severity": 0.39,
+          "baseline_value": 0.58984375,
+          "stressed_value": 0.6005859375,
+          "performance_drop": -0.0107421875,
+          "mean_absolute_delta": 0.043891254130676315,
+          "average_entropy": 0.5359115978752454
+        }
+      ],
+      "parameters": {
+        "direction": -1,
+        "modality": "radiology"
+      }
+    }
+  ],
+  "comparison_to_previous_run": null
+}

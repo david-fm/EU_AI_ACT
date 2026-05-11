@@ -1,0 +1,107 @@
+[stress_taxonomies.nih_chest_xrays]
+description = "Radiology-oriented perturbations for NIH Chest X-rays style workflows."
+
+[[stress_taxonomies.nih_chest_xrays.cases]]
+name = "xray_sensor_noise"
+kind = "noise"
+severity = 0.22
+
+[stress_taxonomies.nih_chest_xrays.cases.parameters]
+modality = "radiology"
+
+[[stress_taxonomies.nih_chest_xrays.cases]]
+name = "xray_soft_blur"
+kind = "blur"
+severity = 0.34
+
+[stress_taxonomies.nih_chest_xrays.cases.parameters]
+mode = "gaussian_like"
+kernel_size = 5
+
+[[stress_taxonomies.nih_chest_xrays.cases]]
+name = "xray_central_occlusion"
+kind = "occlusion"
+severity = 0.38
+
+[stress_taxonomies.nih_chest_xrays.cases.parameters]
+position = "center"
+coverage = 0.30
+
+[[stress_taxonomies.nih_chest_xrays.cases]]
+name = "xray_low_light"
+kind = "illumination"
+severity = 0.30
+
+[stress_taxonomies.nih_chest_xrays.cases.parameters]
+direction = -1
+modality = "radiology"
+
+[stress_taxonomies.autonomous_vehicles]
+description = "Driving-oriented perturbations for autonomous vehicle perception workflows."
+
+[[stress_taxonomies.autonomous_vehicles.cases]]
+name = "road_sensor_noise"
+kind = "noise"
+severity = 0.18
+
+[stress_taxonomies.autonomous_vehicles.cases.parameters]
+context = "road"
+
+[[stress_taxonomies.autonomous_vehicles.cases]]
+name = "road_motion_blur"
+kind = "blur"
+severity = 0.45
+
+[stress_taxonomies.autonomous_vehicles.cases.parameters]
+mode = "motion_horizontal"
+kernel_size = 7
+
+[[stress_taxonomies.autonomous_vehicles.cases]]
+name = "road_lateral_occlusion"
+kind = "occlusion"
+severity = 0.34
+
+[stress_taxonomies.autonomous_vehicles.cases.parameters]
+position = "right"
+coverage = 0.24
+
+[[stress_taxonomies.autonomous_vehicles.cases]]
+name = "road_glare"
+kind = "illumination"
+severity = 0.42
+
+[stress_taxonomies.autonomous_vehicles.cases.parameters]
+direction = 1
+scenario = "glare"
+
+[[stress_taxonomies.autonomous_vehicles.cases]]
+name = "road_low_light"
+kind = "illumination"
+severity = 0.28
+
+[stress_taxonomies.autonomous_vehicles.cases.parameters]
+direction = -1
+scenario = "night"
+
+[stress_taxonomies.generic]
+description = "Fallback generic profile used when no domain matches."
+
+[[stress_taxonomies.generic.cases]]
+name = "noise"
+kind = "noise"
+severity = 0.30
+
+[[stress_taxonomies.generic.cases]]
+name = "blur"
+kind = "blur"
+severity = 0.40
+
+[[stress_taxonomies.generic.cases]]
+name = "occlusion"
+kind = "occlusion"
+severity = 0.35
+
+[[stress_taxonomies.generic.cases]]
+name = "illumination"
+kind = "illumination"
+severity = 0.30
