@@ -5,115 +5,65 @@
 - Run timestamp (UTC): 2026-04-14T17:20:16.416042+00:00
 - Stress domain: generic
 - Risk records: 4
+- Report type: Enriched FMEA
 
-## Risk Register
-- R-FAIRNESS-GAP: Fairness disparity across metadata groups
-  - Severity: 5
-  - Occurrence: 4
-  - Detectability: 4
-  - RPN: 80
-  - High risk: True
-  - Strategy: mitigate
-- R-STRESS-XRAY_SENSOR_NOISE: Robustness degradation under xray_sensor_noise
-  - Severity: 1
-  - Occurrence: 2
-  - Detectability: 3
-  - RPN: 6
-  - High risk: False
-  - Strategy: mitigate
-- R-STRESS-XRAY_SOFT_BLUR: Robustness degradation under xray_soft_blur
-  - Severity: 1
-  - Occurrence: 2
-  - Detectability: 4
-  - RPN: 8
-  - High risk: False
-  - Strategy: mitigate
-- R-STRESS-XRAY_LOW_LIGHT: Robustness degradation under xray_low_light
-  - Severity: 1
-  - Occurrence: 2
-  - Detectability: 3
-  - RPN: 6
-  - High risk: False
-  - Strategy: mitigate
+## 1. Risk Register (Art. 9.2)
+### R-FAIRNESS-GAP: Fairness disparity across metadata groups
+- Severity: 5
+- Occurrence: 4
+- Detectability: 4
+- RPN: 80
+- Strategy: mitigate
+- Current controls: Per-group fairness metrics
+- Recommended action: Review sampling strategy and group-specific thresholds
+
+### R-STRESS-XRAY_SENSOR_NOISE: Robustness degradation under xray_sensor_noise
+- Severity: 1
+- Occurrence: 2
+- Detectability: 3
+- RPN: 6
+- Strategy: mitigate
+- Current controls: Stress test taxonomy by domain
+- Recommended action: Harden training with targeted augmentation
+
+### R-STRESS-XRAY_SOFT_BLUR: Robustness degradation under xray_soft_blur
+- Severity: 1
+- Occurrence: 2
+- Detectability: 4
+- RPN: 8
+- Strategy: mitigate
+- Current controls: Stress test taxonomy by domain
+- Recommended action: Harden training with targeted augmentation
+
+### R-STRESS-XRAY_LOW_LIGHT: Robustness degradation under xray_low_light
+- Severity: 1
+- Occurrence: 2
+- Detectability: 3
+- RPN: 6
+- Strategy: mitigate
+- Current controls: Stress test taxonomy by domain
+- Recommended action: Harden training with targeted augmentation
+
+## 2. FMEA Analysis
+### FMEA #1
+- Failure Mode: Prediction quality drift under expected operating conditions
+- S: 5 | O: 1 | D: 4 → RPN: 20
+- Action Priority: N/A
+- Action Required: No
+- Root Cause: Distribution mismatch between observed and predicted outcomes
+- Recommended Actions: Review thresholding strategy and retraining criteria
+- Residual RPN: 15
 
 ## Stress Testing
-- xray_sensor_noise (noise)
-  - Severity: 0.22
-  - Reference metric: accuracy
-  - Baseline value: 0.58984375
-  - Stressed value: 0.5950520833333334
-  - Performance drop: -0.005208333333333333
-  - Max performance drop: -0.0026041666666666665
-  - Drop slope: 0.0
-  - Mean absolute delta: 0.15362285858342753
-  - Average entropy: 0.4884899085170211
-  - Severity curve:
-    - Severity 0.15: drop -0.0026041666666666665
-      - Baseline: 0.58984375
-      - Stressed: 0.5924479166666666
-    - Severity 0.22: drop -0.0026041666666666665
-      - Baseline: 0.58984375
-      - Stressed: 0.5924479166666666
-    - Severity 0.29: drop -0.0026041666666666665
-      - Baseline: 0.58984375
-      - Stressed: 0.5924479166666666
-- xray_soft_blur (blur)
-  - Severity: 0.34
-  - Reference metric: accuracy
-  - Baseline value: 0.58984375
-  - Stressed value: 0.568359375
-  - Performance drop: 0.021484375
-  - Max performance drop: 0.0322265625
-  - Drop slope: 0.107421875
-  - Mean absolute delta: 0.1748026358854986
-  - Average entropy: 0.5219005015765369
-  - Severity curve:
-    - Severity 0.24: drop 0.0107421875
-      - Baseline: 0.58984375
-      - Stressed: 0.5791015625
-    - Severity 0.34: drop 0.021484375
-      - Baseline: 0.58984375
-      - Stressed: 0.568359375
-    - Severity 0.44: drop 0.0322265625
-      - Baseline: 0.58984375
-      - Stressed: 0.5576171875
-- xray_central_occlusion (occlusion)
-  - Severity: 0.38000000000000006
-  - Reference metric: accuracy
-  - Baseline value: 0.58984375
-  - Stressed value: 0.59765625
-  - Performance drop: -0.0078125
-  - Max performance drop: -0.00390625
-  - Drop slope: 0.0
-  - Mean absolute delta: 0.2037652843810065
-  - Average entropy: 0.30464755408831273
-  - Severity curve:
-    - Severity 0.27: drop -0.00390625
-      - Baseline: 0.58984375
-      - Stressed: 0.59375
-    - Severity 0.38: drop -0.00390625
-      - Baseline: 0.58984375
-      - Stressed: 0.59375
-    - Severity 0.49: drop -0.00390625
-      - Baseline: 0.58984375
-      - Stressed: 0.59375
-- xray_low_light (illumination)
-  - Severity: 0.30000000000000027
-  - Reference metric: accuracy
-  - Baseline value: 0.58984375
-  - Stressed value: 0.611328125
-  - Performance drop: -0.021484375
-  - Max performance drop: -0.0107421875
-  - Drop slope: 0.0
-  - Mean absolute delta: 0.038166307939718536
-  - Average entropy: 0.4871923617047686
-  - Severity curve:
-    - Severity 0.21: drop -0.0107421875
-      - Baseline: 0.58984375
-      - Stressed: 0.6005859375
-    - Severity 0.3: drop -0.0107421875
-      - Baseline: 0.58984375
-      - Stressed: 0.6005859375
-    - Severity 0.39: drop -0.0107421875
-      - Baseline: 0.58984375
-      - Stressed: 0.6005859375
+### xray_sensor_noise (noise)
+- Drop: -0.0052 | Max: -0.0026
+- Entropy: 0.4885
+### xray_soft_blur (blur)
+- Drop: 0.0215 | Max: 0.0322
+- Entropy: 0.5219
+### xray_central_occlusion (occlusion)
+- Drop: -0.0078 | Max: -0.0039
+- Entropy: 0.3046
+### xray_low_light (illumination)
+- Drop: -0.0215 | Max: -0.0107
+- Entropy: 0.4872

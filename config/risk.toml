@@ -1,0 +1,17 @@
+[fmea]
+# RPN thresholds for action priority
+high_rpn_threshold = 120
+medium_rpn_threshold = 60
+low_rpn_threshold = 20
+
+# Residual risk reduction targets
+residual_rpn_target_high = 80
+residual_rpn_target_medium = 40
+residual_rpn_target_low = 10
+
+# Action priority mapping
+[fmea.action_priority]
+high = { min_rpn = 120, description = "Immediate action required" }
+medium = { min_rpn = 60, description = "Action recommended within 30 days" }
+low = { min_rpn = 20, description = "Monitor and review periodically" }
+none = { min_rpn = 0, description = "Acceptable risk" }

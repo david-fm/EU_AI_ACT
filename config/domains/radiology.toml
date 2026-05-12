@@ -1,0 +1,21 @@
+[fmea.domain_overrides]
+domain = "radiology"
+
+[fmea.failure_modes]
+mode = "missed_pneumothorax"
+cause = "Low contrast in pleural region due to underexposure or patient positioning"
+control = "Dual-reader validation + confidence thresholding + quality checks"
+
+[fmea.root_cause_taxonomy]
+# Categories for AI to classify root causes into (with descriptions for context)
+image_quality = "Issues related to image acquisition: exposure, positioning, artifacts, modality-specific noise, or reconstruction errors"
+dataset_bias = "Issues related to training data: demographic imbalance, disease prevalence, equipment variability, annotation quality, or sampling bias"
+model_limitations = "Issues related to model: architecture constraints, training data gaps, feature extraction, generalization to edge cases, or inference quirks"
+workflow = "Issues related to human-AI interaction: fatigue, time pressure, context switching, trust calibration, or communication failures"
+
+[fmea.action_taxonomy]
+# Action types for AI to select from and customize based on specific failure
+detect_and_prevent = "Detect issues early and prevent harm through monitoring, alerts, or pre-emptive safeguards"
+mitigate_and_control = "Reduce risk impact through architectural changes, procedural controls, or risk reduction measures"
+document_and_inform = "Ensure transparency and traceability through documentation, logging, audit trails, and stakeholder disclosure"
+monitor_and_review = "Ongoing monitoring through metrics tracking, periodic audits, performance reviews, and continuous assessment"

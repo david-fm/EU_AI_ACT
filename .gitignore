@@ -15,3 +15,6 @@ wheels/
 # Project-specific files
 case/*.h5
 case/*.png
+plan
+.claude
+.coverage

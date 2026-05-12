@@ -79,4 +79,41 @@ src/eu_ai_act/
 - Stress testing for radiology domain (sensor noise, blur, occlusion, low light)
 - Run versioning with comparison support between runs
 
-See `EXECUTION_BOARD.md` for detailed development roadmap.
+## Module 1 - FMEA Risk Enrichment (AI-Powered)
+
+The FMEA enrichment module (`docs/02_MODULO_1_RIESGO_FMEA/`) extends baseline assessments with AI-powered insights:
+
+### Features
+- **AI-Powered Analysis**: Uses Agno agent to generate detailed root cause analysis
+- **Evidence-Based**: AI cites specific data points from assessment metrics
+- **Taxonomy-Based**: Domain-specific root cause and action taxonomies
+- **Unified Export**: Single pipeline for baseline and enriched reports
+
+### Components
+- `src/eu_ai_act/compliance/fmea.py` - FMEAConfig, FMEAEnricher, FMEAScore
+- `src/eu_ai_act/compliance/ai_insights.py` - FMEAAIAgent with full assessment context
+- `src/eu_ai_act/testing/clarity_audit.py` - Regression testing tool for report quality
+
+### Output Fields (AI-Generated)
+| Field | Description |
+|-------|-------------|
+| `root_cause_category` | Taxonomy classification (e.g., dataset_bias) |
+| `root_cause_analysis` | Evidence-based analysis citing specific metrics |
+| `recommended_actions` | Targeted actions from action taxonomy |
+| `mitigation_strategy` | EU AI Act Article 9 aligned approach |
+| `monitoring_recommendations` | Metrics, frequencies, acceptance criteria |
+| `evidence_from_data` | Data citations informing the analysis |
+
+### Testing
+```bash
+# Run clarity audit (regression test for report quality)
+uv run pytest tests/clarity/ -v -m "not slow"
+uv run pytest tests/clarity/ -v -m slow  # Requires AI API
+
+# CLI usage
+uv run python -m eu_ai_act.testing.clarity_audit \
+  --report outputs/run_01/assessment_enriched.md \
+  --notebook case/train-simple-xray-cnn.ipynb
+```
+
+See `docs/02_MODULO_1_RIESGO_FMEA/README.md` for full documentation.
